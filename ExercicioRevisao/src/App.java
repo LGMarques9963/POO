@@ -17,7 +17,7 @@ public class App{
             veiculos[i] = new Veiculo(placas[i]);
             System.out.println(veiculos[i]);
         }
-        System.out.println("Entre com uma opção: \n 1) Abastecer \n 2) Dirigir \n 3) Fim");
+        System.out.println("Entre com o número de uma opção: \n 1 - Abastecer \n 2 - Dirigir \n 3 - Fim");
         opcao = s.nextLine();
 
         
