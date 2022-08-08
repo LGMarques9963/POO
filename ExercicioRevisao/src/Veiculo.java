@@ -24,6 +24,8 @@ public class Veiculo{
     public double abastece(double litros){
         if (litros > 0.0 && combustivel + litros <= capacidadeCombustivel){
             combustivel += litros;
+        }else{
+            System.out.println("Não foi possível abastecer pois a quantidade excede a capacidade do tanque");
         }
         return combustivel;
     }
