@@ -1,3 +1,3 @@
 public enum NomeMoeda {
-    UmReal, Cinquenta, VinteCinco, Dez, Cinco, Um
+    UmReal, Cinquenta, VinteCinco, Dez, Cinco, Um;
 }
