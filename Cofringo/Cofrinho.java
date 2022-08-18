@@ -1,5 +1,5 @@
 public class Cofrinho{
-    private final int CAPACIDADE = 500;
+    private final int CAPACIDADE = 50;
     private int proxLivre = 0;
     private Moeda moedas[];
     private int qtdeMoedas;
