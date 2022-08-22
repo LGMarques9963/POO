@@ -1,11 +1,16 @@
-public class Cofrinho{
-    private final int CAPACIDADE = 50;
-    private int proxLivre = 0;
-    private Moeda moedas[];
-    private int qtdeMoedas;
+import java.util.ArrayList;
 
+public class Cofrinho{
+    private int CAPACIDADE;
+    private ArrayList<Moeda> moedas;
+
+    public Cofrinho(int CAPACIDADE){
+        this.CAPACIDADE = CAPACIDADE;
+        moedas = new ArrayList<>(CAPACIDADE);
+    }
     public Cofrinho(){
-        moedas = new Moeda[this.CAPACIDADE];
+        this.CAPACIDADE = 100;
+        moedas = new ArrayList<>(CAPACIDADE);
     }
 
     public int getCapacidade(){
@@ -13,56 +18,49 @@ public class Cofrinho{
     }
 
     public boolean insereMoeda(Moeda moeda){
-        if(proxLivre>=CAPACIDADE){
+        if(moedas.size() >= CAPACIDADE){
             return false;
         }else{
-            this.moedas[proxLivre] = moeda;
-            this.qtdeMoedas++;
-            this.proxLivre++;
+            moedas.add(moeda);
             return true;
         }
     }
 
     public Moeda retira(){
-        Moeda moedaRetirada;
-        if(proxLivre <= 0){
-            return null;
-        }else{
-            moedaRetirada = moedas[proxLivre-1];
-            moedas[proxLivre] = null;
-            proxLivre--;
-            qtdeMoedas--;
-            return moedaRetirada;
-        }
+        return moedas.remove(moedas.size()-1);
     }
 
     public int getQtdeMoedas(){
-        return this.qtdeMoedas;
+        return moedas.size();
     }
 
     public int getQtdeMoedasTipo(NomeMoeda nomeMoeda){
         int moedasTipo = 0;
-        for(int i = 0;i<qtdeMoedas;i++){
-            if (nomeMoeda == moedas[i].getNomeMoeda()){
-                moedasTipo++;
-            }
+
+        for(Moeda m:moedas){
+            if(m.getNomeMoeda().equals(nomeMoeda)) moedasTipo++;
         }
+
         return moedasTipo;
     }
 
     public int getValorTotalCentavos(){
         int valor = 0;
-        for(int i = 0;i<qtdeMoedas;i++){
-            valor = valor + moedas[i].getValorCentavos();
-        }
+        for(Moeda m:moedas) valor = valor + m.getValorCentavos();
         return valor;
     }
 
     public double getValorTotalReais(){
         double valor = 0;
-        for(int i = 0;i<qtdeMoedas;i++){
-            valor = valor + moedas[i].getValorReais();
-        }
+        for(Moeda m:moedas) valor = valor + m.getValorReais();
         return valor;
     }
+
+    public String toString(){
+        String aux = "[";
+        for(int i=0;i<=moedas.size();i++) aux += moedas.get(i).getNomeMoeda().name()+",";
+        aux += moedas.get(moedas.size()-1).getNomeMoeda().name()+"]";
+        return aux;
+    }
+
 }

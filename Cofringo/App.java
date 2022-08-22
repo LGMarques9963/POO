@@ -2,6 +2,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class App {
+    public static boolean teste(){
+        return true;
+    }
     public static void main(String[] args) throws Exception {
         Cofrinho cofre = new Cofrinho();
         NomeMoeda nomeMoedas[] = NomeMoeda.values();
@@ -13,6 +16,8 @@ public class App {
         int contador = 0;
         String escolha;
 
+
+        System.out.println(teste());
         for(int i = 0;i<TOTAL_INSERIR;i++){
             Random r = new Random();
             int id = r.nextInt(nomeMoedas.length);
