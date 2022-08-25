@@ -4,7 +4,6 @@ public class Locomotiva {
     private int nroMaxVagoes;
     private Trem trem;
 
-    
     public Locomotiva(int id, double pesoMax, int nroMaxVagoes) {
         this.id = id;
         this.pesoMax = pesoMax;
@@ -24,7 +23,7 @@ public class Locomotiva {
     public int getNroMaxVagoes() {
         return nroMaxVagoes;
     }
-    public Trem getTrem() {
+    public Trem getTrem() {//Não seria num_identificador do trem, no uml ta como int
         return trem;
     }
     
