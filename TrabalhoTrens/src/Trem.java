@@ -33,13 +33,21 @@ public class Trem{
 
     // Precisa desse método?
     public Vagao getVagaoPosicao(int posicao){
-        Vagao vag_Posi = null;
-        for(int i=0;i < vagoes.size(); i++){
-            if(posicao == vagoes.get(i).getId()){
-                vag_Posi = vagoes.get(i);
-            }
+        if(posicao < 0 || posicao >= usadosVagoes){
+            return null;
+        }else{
+            return this.vagoes.get(posicao);
         }
-        return vag_Posi;
+        
+       // return this.vagoes.get(posicao);
+        
+        // Vagao vag_Posi = null;
+        // for(int i=0;i < vagoes.size(); i++){
+        //     if(posicao == vagoes.get(i).getId()){
+        //         vag_Posi = vagoes.get(i);
+        //     }
+        // }
+        // return vag_Posi;
     }
 
     // Precisa desse método?
