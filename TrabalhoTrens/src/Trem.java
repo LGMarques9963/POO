@@ -3,21 +3,35 @@ public class Trem{
     private int id_Trem;
     private ArrayList<Locomotiva> locomotivas;
     private ArrayList<Vagao> vagoes;
+    private int usadosVagoes, usadosLocomotivas;
 
-    public Trem(int id_Trem){
-        this.id_Trem = id_Trem;
+    private static int ultimoId = 0;
+
+    public Trem(Locomotiva locomotiva){
+        this.id_Trem = ultimoId + 1;
+        ultimoId = this.id_Trem;
+
         locomotivas = new ArrayList<>();
+        locomotivas.add(locomotiva);
+        this.usadosLocomotivas = 1;
+
         vagoes = new ArrayList<>();
+        this.usadosVagoes = 0;
     }
+
     public int getID(){
         return id_Trem;
     }
+
     public int getQntLocomotivas(){
-        return locomotivas.size();
+        return this.usadosLocomotivas;
     }
+
     public int getQuantidadeVagoes(){
-        return vagoes.size();
+        return this.usadosVagoes;
     }
+
+    // Precisa desse método?
     public Vagao getVagaoPosicao(int posicao){
         Vagao vag_Posi = null;
         for(int i=0;i < vagoes.size(); i++){
@@ -27,6 +41,8 @@ public class Trem{
         }
         return vag_Posi;
     }
+
+    // Precisa desse método?
     public Locomotiva getLocomotivaPosicao(int posicao){
         Locomotiva loc_Pos = null;
         for(int i=0;i < locomotivas.size(); i++){
@@ -36,31 +52,44 @@ public class Trem{
         }
         return loc_Pos;
     }
+
     public boolean engataLocomotiva(Locomotiva loc){
-        locomotivas.add(loc);
-        return true;
+        if (getQuantidadeVagoes() == 0){
+            locomotivas.add(loc);
+            this.usadosLocomotivas++;
+            return true;
+        }else{
+            System.out.println("Não é possível adicionar uma locomotiva se já há vagões engatados");
+            return false;
+        }
     }
     public boolean engataVagao(Vagao vag){
         if(locomotivas.size() > 0){
             vagoes.add(vag);
+            this.usadosVagoes++;
             return true;
         }else{
+            System.out.println("Primeiro adicione pelo menos uma locomotiva"); 
             return false;
         }
     }
+
     public boolean desengataVagao(){
-        if(vagoes.size() == 0){
+        if(getQuantidadeVagoes() == 0){
+            System.out.println("Não há vagões engatados para retirar");
             return false;
         }else{
-            vagoes.remove(vagoes.size()-1);
+            vagoes.remove(getQuantidadeVagoes());
             return true;
         }
     }
+    
     public boolean desengataLocomotiva(){
-        if(locomotivas.size() == 0){
+        if(getQntLocomotivas() == 0){
+            System.out.println("Não há locomotivas engatadas"); // Temos que chamar o destrutor nesse caso
             return false;
         }else{
-            locomotivas.remove(locomotivas.size()-1);
+            locomotivas.remove(getQntLocomotivas());
             return true;
         }
     }

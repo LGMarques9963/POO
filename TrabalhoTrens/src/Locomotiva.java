@@ -3,9 +3,11 @@ public class Locomotiva {
     private double pesoMax;
     private int nroMaxVagoes;
     private Trem trem;
+    private static int ultimoId = 0;
 
-    public Locomotiva(int id, double pesoMax, int nroMaxVagoes) {
-        this.id = id;
+    public Locomotiva(double pesoMax, int nroMaxVagoes) {
+        this.id = ultimoId + 1;
+        ultimoId = this.id;
         this.pesoMax = pesoMax;
         this.nroMaxVagoes = nroMaxVagoes;
     }

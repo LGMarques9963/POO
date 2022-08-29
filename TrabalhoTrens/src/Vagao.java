@@ -2,9 +2,11 @@ public class Vagao {
     private int id_Vagao;
     private double cap_max;
     private Trem trem;
+    private static int ultimoId = 0;
 
-    public Vagao(int id_Vagao,double cap_max){
-        this.id_Vagao = id_Vagao;
+    public Vagao(double cap_max){
+        this.id_Vagao = ultimoId + 1;
+        ultimoId = this.id_Vagao;
         this.cap_max = cap_max;
     }
 
