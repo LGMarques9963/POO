@@ -21,6 +21,8 @@ public class App {
         tremTeste = trens.get(0);
         System.out.println(tremTeste.engataLocomotiva(locomotivas.get(2)));
         System.out.println(tremTeste.engataLocomotiva(locomotivas.get(2)));
+        System.out.println(tremTeste.desengataLocomotiva());
+        System.out.println(locomotivas.get(2).getTrem());
         //verififcar se não esta pasando uma caracter invalido
         Scanner s = new Scanner(System.in);
         do{

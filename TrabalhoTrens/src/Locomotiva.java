@@ -4,13 +4,14 @@ public class Locomotiva {
     private int nroMaxVagoes;
     private Trem trem;
     private static int ultimoId = 0;
-    private boolean livre = true;
+    private boolean livre;
 
     public Locomotiva(double pesoMax, int nroMaxVagoes) {
         this.id = ultimoId + 1;
         ultimoId = this.id;
         this.pesoMax = pesoMax;
         this.nroMaxVagoes = nroMaxVagoes;
+        this.livre = true;
     }
     
     public void setTrem(Trem trem) {

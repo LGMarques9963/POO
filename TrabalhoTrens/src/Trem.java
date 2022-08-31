@@ -66,19 +66,22 @@ public class Trem{
             locomotivas.add(loc);
             this.usadosLocomotivas++;
             loc.setEstado(false);
+            loc.setTrem(this);
             return true;
         }else{
-            System.out.println("Não é possível adicionar uma locomotiva se já há vagões engatados");
+            System.out.println("Não é possível adicionar essa locomotiva");
             return false;
         }
     }
+
     public boolean engataVagao(Vagao vag){
-        if(locomotivas.size() > 0){
+        if(locomotivas.size() > 0 & vag.getEstado()){
             vagoes.add(vag);
             this.usadosVagoes++;
+            vag.setEstado(false);
             return true;
         }else{
-            System.out.println("Primeiro adicione pelo menos uma locomotiva"); 
+            System.out.println("Não é possível adicionar esse vagao"); 
             return false;
         }
     }
@@ -87,7 +90,10 @@ public class Trem{
         if(getQuantidadeVagoes() == 0){
             return false;
         }else{
+            Vagao vagao = vagoes.get(getQuantidadeVagoes()-1);
+            vagao.setEstado(true);
             vagoes.remove(getQuantidadeVagoes());
+
             return true;
         }
     }
@@ -97,7 +103,10 @@ public class Trem{
             System.out.println("Não há locomotivas engatadas"); // Temos que chamar o destrutor nesse caso
             return false;
         }else{
-            locomotivas.remove(getQntLocomotivas());
+            Locomotiva loc;
+            loc = locomotivas.get(getQntLocomotivas()-1);
+            loc.setEstado(true);
+            locomotivas.remove(getQntLocomotivas()-1);
             return true;
         }
     }
