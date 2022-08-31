@@ -28,5 +28,8 @@ public class Locomotiva {
     public Trem getTrem() {//Não seria num_identificador do trem, no uml ta como int
         return trem;
     }
+    public String toString(){
+        return "ID: "+this.id+" | Peso Max: "+this.pesoMax+" | Nro Max de Vagoes: "+this.nroMaxVagoes;
+    }
     
 }

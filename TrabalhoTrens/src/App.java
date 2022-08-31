@@ -15,30 +15,32 @@ public class App {
             locomotivas.add(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));
             vagoes.add(new Vagao((r.nextInt(100)*10/2)));
         }
-
-        // Scanner s = new Scanner(System.in);
-        
-        // System.out.println("Escolha uma ação a realizar: \n 1 - Criar um Trem;\n 2 - Editar um Trem;\n 3 - Listar todos os Trens;\n 4 - Desfazer um Trem;");
-        // escolha = s.nextInt();
-
-        // switch(escolha){
-        //     case 1:
-        //         int idLocomotiva;
-        //         System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
-        //         Scanner i = new Scanner(System.in);
-        //         idLocomotiva = i.nextInt();
-        //         trens.add(new Trem(locomotivas.get(idLocomotiva)));
-        //         i.close();
-        //         break;
-        //     case 2:
-        //         break;
-        //     case 3:
-        //         break;
-        //     case 4:
-        //         break;
-        //     default:
-        //         break;
-        // }
+        //verififcar se não esta pasando uma String
+        Scanner s = new Scanner(System.in);
+        do{
+            System.out.println("Escolha uma ação a realizar: \n 1 -"+ 
+            "Criar um Trem;\n 2 - Editar um Trem;\n 3 - Listar todos os Trens;\n 4 - Desfazer um Trem;\n 0 - Sair");
+            escolha = s.nextInt();
+         switch(escolha){
+             case 1:
+                 int idLocomotiva;
+                 System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
+                 Scanner i = new Scanner(System.in);
+                 idLocomotiva = i.nextInt();
+                 System.out.println(locomotivas.get(idLocomotiva-1).toString());
+                 trens.add(new Trem(locomotivas.get(idLocomotiva)));
+                 break;
+             case 2:
+                 break;
+             case 3:
+                 break;
+             case 4:
+                 break;
+             default:
+                if(escolha != 0)System.out.println("Caracter digitado invalido !");
+                break;
+         }
+        }while(escolha != 0);
 
 
 
