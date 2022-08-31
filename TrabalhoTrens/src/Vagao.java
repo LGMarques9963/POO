@@ -19,4 +19,8 @@ public class Vagao {
     public int getComposicao(){
         return trem.getID();
     }
+    @Override
+    public String toString(){
+        return "id Vag:"+this.id_Vagao+" | Cap Max"+this.cap_max;
+    }
 }

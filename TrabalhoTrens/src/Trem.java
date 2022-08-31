@@ -84,7 +84,6 @@ public class Trem{
 
     public boolean desengataVagao(){
         if(getQuantidadeVagoes() == 0){
-            System.out.println("Não há vagões engatados para retirar");
             return false;
         }else{
             vagoes.remove(getQuantidadeVagoes());
@@ -100,6 +99,9 @@ public class Trem{
             locomotivas.remove(getQntLocomotivas());
             return true;
         }
+    }
+    public String toString(){
+        return "id Trem: "+id_Trem+" | Qnt Locomotivas:"+getQntLocomotivas()+" | Qnt Vagoes:"+getQuantidadeVagoes();
     }
 
 }
