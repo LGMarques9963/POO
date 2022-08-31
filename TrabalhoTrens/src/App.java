@@ -5,18 +5,20 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         
-        ArrayList<Locomotiva> locomotivas = new ArrayList<>();
+        GaragemLocomotiva garagemLocomotiva = new GaragemLocomotiva();
         ArrayList<Vagao> vagoes = new ArrayList<>();
+        
+        ArrayList<Locomotiva> locomotivas = new ArrayList<>();
         ArrayList<Trem> trens = new ArrayList<>();
         int escolha;
         Trem tremTeste;
 
         for(int i=0;i<=30;i++){
             Random r = new Random();
-            locomotivas.add(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));
+            garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));
             vagoes.add(new Vagao((r.nextInt(100)*10/2)));
         }
-
+        locomotivas = garagemLocomotiva.getLocomotivas();
         trens.add(new Trem(locomotivas.get(1)));
         tremTeste = trens.get(0);
         System.out.println(tremTeste.engataLocomotiva(locomotivas.get(2)));

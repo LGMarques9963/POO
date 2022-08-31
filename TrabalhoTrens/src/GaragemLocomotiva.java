@@ -11,10 +11,19 @@ public class GaragemLocomotiva{
     }
 
     public boolean removeLocomotiva(Locomotiva locomotiva){
-        int id;
+        int id = 0;
         for(int i=0;i<locomotivas.size();i++){
-            if(locomotivas.get(i).getId() == locomotiva.getId()) id = locomotiva.getId();
+            if(locomotivas.get(i).getId() == locomotiva.getId()){
+                id = locomotiva.getId();
+                locomotivas.remove(i);
+                break;
+            }
         }
-        
+        System.out.println("A locomotiva de id "+id+" foi removida");
+        return true;
+    }
+
+    public ArrayList getLocomotivas(){
+        return locomotivas;
     }
 }
