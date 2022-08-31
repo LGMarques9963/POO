@@ -79,8 +79,6 @@ public class Trem{
             vagoes.add(vag);
             this.usadosVagoes++;
             vag.setEstado(false);
-            vag.setTrem(this);
-            
             return true;
         }else{
             System.out.println("Não é possível adicionar esse vagao"); 
