@@ -4,6 +4,7 @@ public class Locomotiva {
     private int nroMaxVagoes;
     private Trem trem;
     private static int ultimoId = 0;
+    private boolean livre = true;
 
     public Locomotiva(double pesoMax, int nroMaxVagoes) {
         this.id = ultimoId + 1;
@@ -16,6 +17,15 @@ public class Locomotiva {
         this.trem = trem;
     }
 
+    public void setEstado(boolean livre){
+        this.livre = livre;
+    }
+
+
+    public boolean getEstado(){
+        return this.livre;
+    }
+    
     public int getId() {
         return id;
     }

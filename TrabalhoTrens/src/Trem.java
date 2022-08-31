@@ -62,9 +62,10 @@ public class Trem{
     }
 
     public boolean engataLocomotiva(Locomotiva loc){
-        if (getQuantidadeVagoes() == 0){
+        if (getQuantidadeVagoes() == 0 & loc.getEstado()){
             locomotivas.add(loc);
             this.usadosLocomotivas++;
+            loc.setEstado(false);
             return true;
         }else{
             System.out.println("Não é possível adicionar uma locomotiva se já há vagões engatados");

@@ -9,12 +9,18 @@ public class App {
         ArrayList<Vagao> vagoes = new ArrayList<>();
         ArrayList<Trem> trens = new ArrayList<>();
         int escolha;
+        Trem tremTeste;
 
         for(int i=0;i<=30;i++){
             Random r = new Random();
             locomotivas.add(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));
             vagoes.add(new Vagao((r.nextInt(100)*10/2)));
         }
+
+        trens.add(new Trem(locomotivas.get(1)));
+        tremTeste = trens.get(0);
+        System.out.println(tremTeste.engataLocomotiva(locomotivas.get(2)));
+        System.out.println(tremTeste.engataLocomotiva(locomotivas.get(2)));
         //verififcar se não esta pasando uma caracter invalido
         Scanner s = new Scanner(System.in);
         do{
