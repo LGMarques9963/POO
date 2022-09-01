@@ -92,8 +92,8 @@ public class Trem{
         }else{
             Vagao vagao = vagoes.get(getQuantidadeVagoes()-1);
             vagao.setEstado(true);
-            vagoes.remove(getQuantidadeVagoes());
-
+            vagoes.remove(getQuantidadeVagoes()-1);
+            this.usadosVagoes--;
             return true;
         }
     }
@@ -107,6 +107,7 @@ public class Trem{
             loc = locomotivas.get(getQntLocomotivas()-1);
             loc.setEstado(true);
             locomotivas.remove(getQntLocomotivas()-1);
+            this.usadosLocomotivas--;
             return true;
         }
     }

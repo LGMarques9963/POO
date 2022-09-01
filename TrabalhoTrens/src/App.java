@@ -69,7 +69,7 @@ public class App {
                             l.reset();
                         break;
                         case 2:
-                        //não pode repetir o mesmo vagao, conferir se o vagao não está em uso
+                        //conferir se o trem existe
                             int idVag;
                             System.out.println("Digite o id d0 Vagao a ser adicionada ao Trem");
                             idVag = l.nextInt();
@@ -79,6 +79,22 @@ public class App {
                             t.toString());
                         break;
                         case 3:
+                            if(t.getQuantidadeVagoes() > 0){
+                                System.out.println("Quantity:"+ t.getQuantidadeVagoes());
+                                t.desengataVagao();
+                                System.out.println("Quantity:"+ t.getQuantidadeVagoes());
+                            }else if(t.getQntLocomotivas() >= 0){
+                                System.out.println("Locomotiva: removida com sucesso");
+                                System.out.print("Qnt: "+t.getQntLocomotivas());
+                                t.desengataLocomotiva();
+                                System.out.println(" | Qnt: "+t.getQntLocomotivas());
+                                if(t.getQntLocomotivas() == 0){
+                                    System.out.println(trens.size());
+                                    trens.remove(t);
+                                    System.out.println(trens.size());
+                                    System.out.println("Trem Removido com sucesso.");
+                                }
+                            }
                         break;
                         case 4:
                         break;
@@ -90,6 +106,9 @@ public class App {
                 }while(opc != 6);
                 break;
              case 3:
+                for(int h = 0; h < trens.size()-1; h++){
+                    System.out.println(trens.get(h));
+                }
                  break;
              case 4:
                  break;
