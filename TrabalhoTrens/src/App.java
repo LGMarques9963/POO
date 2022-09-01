@@ -87,7 +87,7 @@ public class App {
                                 System.out.println("Vagao id: "+t.getVagaoPosicao(t.getQuantidadeVagoes()-1).getId()+" removido com sucesso");
                                 t.desengataVagao();
                             }else if(t.getQntLocomotivas() >= 0){
-                                System.out.println("Locomotiva id: "+t.getLocomotivaPosicao(t.getQntLocomotivas())+" removida com sucesso");
+                                System.out.println("Locomotiva id: "+t.getLocomotivaPosicao(t.getQntLocomotivas()-1)+" removida com sucesso");
                                 System.out.print("Qnt: "+t.getQntLocomotivas());
                                 t.desengataLocomotiva();
                                 System.out.println(" | Qnt: "+t.getQntLocomotivas());

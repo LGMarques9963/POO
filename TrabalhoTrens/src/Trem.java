@@ -52,13 +52,11 @@ public class Trem{
 
     // Precisa desse método?
     public Locomotiva getLocomotivaPosicao(int posicao){
-        Locomotiva loc_Pos = null;
-        for(int i=0;i < locomotivas.size(); i++){
-            if(posicao == locomotivas.get(i).getId()){
-                loc_Pos = locomotivas.get(i);
-            }
+        if(posicao < 0 || posicao >= usadosLocomotivas){
+            return null;
+        }else{
+            return this.locomotivas.get(posicao);
         }
-        return loc_Pos;
     }
 
     public boolean engataLocomotiva(Locomotiva loc){
