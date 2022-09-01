@@ -16,7 +16,6 @@ public class Trem{
         this.usadosLocomotivas = 1;
 
         vagoes = new ArrayList<>();
-        
         this.usadosVagoes = 0;
     }
 
@@ -80,8 +79,6 @@ public class Trem{
             vagoes.add(vag);
             this.usadosVagoes++;
             vag.setEstado(false);
-            vag.setTrem(this);
-
             return true;
         }else{
             System.out.println("Não é possível adicionar esse vagao"); 
@@ -95,9 +92,8 @@ public class Trem{
         }else{
             Vagao vagao = vagoes.get(getQuantidadeVagoes()-1);
             vagao.setEstado(true);
-            vagao.setTrem(null);
-            vagoes.remove(getQuantidadeVagoes()-1);
-            
+            vagoes.remove(getQuantidadeVagoes());
+
             return true;
         }
     }

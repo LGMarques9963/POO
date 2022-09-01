@@ -18,9 +18,7 @@ public class Vagao {
     public void setEstado(boolean livre){
         this.livre = livre;
     }
-    public void setTrem(Trem trem){
-        this.trem = trem;
-    }
+
     public int getId(){
         return id_Vagao;
     }
