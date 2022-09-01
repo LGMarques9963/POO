@@ -38,7 +38,7 @@ public class App {
                  System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
                  Scanner i = new Scanner(System.in);
                  idLocomotiva = i.nextInt();
-                 System.out.println(locomotivas.get(idLocomotiva-1).toString());
+                 System.out.println(locomotivas.get(idLocomotiva-1).toString());//<-corrigir
                  trens.add(new Trem(locomotivas.get(idLocomotiva)));
                  idLocomotiva = 0;
                  break;
@@ -64,7 +64,7 @@ public class App {
                             idLoc = l.nextInt();
                             idLoc = idLoc-1;
                             t.engataLocomotiva(locomotivas.get(idLoc));
-                            System.out.println("Locomotiva :"+locomotivas.get(idLoc).toString() + "\nAdicionada ao Trem "+
+                            System.out.println("Locomotiva :"+t.getLocomotivaPosicao(idLoc)+ "\nAdicionada ao Trem "+
                             t.toString());
                             l.reset();
                         break;
@@ -79,20 +79,20 @@ public class App {
                             t.toString());
                         break;
                         case 3:
+                        //conferir se a locomotiva e vagao existe
+                        //System.out.println(t.getLocomotivaPosicao(1).getId());
                             if(t.getQuantidadeVagoes() > 0){
-                                System.out.println("Quantity:"+ t.getQuantidadeVagoes());
+                                System.out.println("Vagao id: "+t.getVagaoPosicao(t.getQuantidadeVagoes()-1).getId()+" removido com sucesso");
                                 t.desengataVagao();
-                                System.out.println("Quantity:"+ t.getQuantidadeVagoes());
                             }else if(t.getQntLocomotivas() >= 0){
-                                System.out.println("Locomotiva: removida com sucesso");
+                                System.out.println("Locomotiva id: "+t.getLocomotivaPosicao(t.getQntLocomotivas()-1)+" removida com sucesso");
                                 System.out.print("Qnt: "+t.getQntLocomotivas());
                                 t.desengataLocomotiva();
                                 System.out.println(" | Qnt: "+t.getQntLocomotivas());
                                 if(t.getQntLocomotivas() == 0){
-                                    System.out.println(trens.size());
                                     trens.remove(t);
-                                    System.out.println(trens.size());
-                                    System.out.println("Trem Removido com sucesso.");
+                                    System.out.println("Trem id: "+t.getID()+" Removido com sucesso.");
+                                    opc = 6;
                                 }
                             }
                         break;
@@ -104,6 +104,7 @@ public class App {
                         break;
                     }
                 }while(opc != 6);
+                t = null;
                 break;
              case 3:
                 for(int h = 0; h < trens.size()-1; h++){
@@ -111,6 +112,24 @@ public class App {
                 }
                  break;
              case 4:
+                System.out.println("Digite o id do Trem a ser editado: ");
+                l = new Scanner(System.in);
+                idTrem = l.nextInt();
+                t = trens.get(idTrem);
+                do{
+                    System.out.println("Vagao id: "+(t.getQuantidadeVagoes()-1) + " foi Removido do trem");
+                    if(t.getQuantidadeVagoes()-1 == 1){
+                        System.out.println("Todos os vagoes foram removidos");
+                    }
+                    t.desengataVagao();
+                }while(t.getQuantidadeVagoes()-1 != 0);
+                do{
+                    System.out.println("Locomotiva id: "+(t.getLocomotivaPosicao(t.getQntLocomotivas()-1).getId()) + " foi Removido do trem");
+                    if(t.getQntLocomotivas()-1 == 1){
+                        System.out.println("Todas as locomotivasa foram removidos");
+                    }
+                    t.desengataLocomotiva();
+                }while(t.getQntLocomotivas()-1 != 0);
                  break;
              default:
                 if(escolha != 0)System.out.println("Caracter digitado invalido !");
