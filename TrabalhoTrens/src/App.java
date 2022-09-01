@@ -43,6 +43,7 @@ public class App {
                  idLocomotiva = 0;
                  break;
              case 2:
+             //Editar Trem
                 int idTrem;
                 Scanner l = new Scanner(System.in);
                 System.out.println("Digite o id do Trem a ser editado: ");
@@ -57,6 +58,7 @@ public class App {
                     opc = l.nextInt();
 
                     switch(opc){
+                        //inserir locomotiva
                         case 1:
                         //não pode repetir a mesma locomotivva, conferir se a locomotiva não está em uso
                             int idLoc;
@@ -64,7 +66,7 @@ public class App {
                             idLoc = l.nextInt();
                             idLoc = idLoc-1;
                             t.engataLocomotiva(locomotivas.get(idLoc));
-                            System.out.println("Locomotiva :"+t.getLocomotivaPosicao(idLoc)+ "\nAdicionada ao Trem "+
+                            System.out.println("Locomotiva :"+locomotivas.get(idLoc).toString() + "\nAdicionada ao Trem "+
                             t.toString());
                             l.reset();
                         break;
@@ -85,7 +87,7 @@ public class App {
                                 System.out.println("Vagao id: "+t.getVagaoPosicao(t.getQuantidadeVagoes()-1).getId()+" removido com sucesso");
                                 t.desengataVagao();
                             }else if(t.getQntLocomotivas() >= 0){
-                                System.out.println("Locomotiva id: "+t.getLocomotivaPosicao(t.getQntLocomotivas()-1)+" removida com sucesso");
+                                System.out.println("Locomotiva id: "+t.getLocomotivaPosicao(t.getQntLocomotivas())+" removida com sucesso");
                                 System.out.print("Qnt: "+t.getQntLocomotivas());
                                 t.desengataLocomotiva();
                                 System.out.println(" | Qnt: "+t.getQntLocomotivas());
