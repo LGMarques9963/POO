@@ -16,7 +16,7 @@ public class App {
         for(int i=0;i<=30;i++){
             Random r = new Random();
             garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));
-            vagoes.add(new Vagao((r.nextInt(100)*10/2)));
+            vagoes.add(new Vagao((r.nextInt(50)*10/2)));
         }
         locomotivas = garagemLocomotiva.getLocomotivas();
         trens.add(new Trem(locomotivas.get(1)));

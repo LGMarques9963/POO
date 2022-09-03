@@ -6,7 +6,8 @@ public class GaragemLocomotiva{
 
     public boolean entraLocomotiva(Locomotiva locomotiva){
         Random r = new Random();
-        locomotivas.add(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(r.nextInt(50)+10)));
+        //Peso Max - Num de Vagoes
+        locomotivas.add(new Locomotiva((r.nextInt(200)*10/2), r.nextInt(r.nextInt(30)+10)));
         return true;
     }
 

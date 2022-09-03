@@ -71,15 +71,36 @@ public class Trem{
             return false;
         }
     }
+    //Soma do total de vagoes que as locomotivas aguentam
+    public int somaTotalVagoes(){
+        int vag_permitidos = 0;
+        for(int i = 0; i < locomotivas.size(); i++){
+            vag_permitidos += locomotivas.get(i).getNroMaxVagoes(); 
+        }
+        return vag_permitidos;
+    }
+    //Soma do total de peso que as locomotivas aguentam
+    public double somaTotalPeso(){
+        double peso_max = 0;
+        for(int i = 0; i < locomotivas.size(); i++){
+            peso_max += locomotivas.get(i).getPesoMax(); 
+        }
+        return peso_max;
+    }
 
     public boolean engataVagao(Vagao vag){
-        if(locomotivas.size() > 0 & vag.getEstado()){
+        double peso_max_vag = 0;
+        for(int i = 0; i < vagoes.size(); i++){
+            peso_max_vag += vagoes.get(i).getCapMax();
+        }
+        peso_max_vag += vag.getCapMax();
+        if(locomotivas.size() > 0 & vag.getEstado() & somaTotalVagoes() > vagoes.size() & peso_max_vag <= somaTotalPeso()){
             vagoes.add(vag);
             this.usadosVagoes++;
             vag.setEstado(false);
             return true;
         }else{
-            System.out.println("Não é possível adicionar esse vagao"); 
+            System.out.println("Nao e possível adicionar esse vagao"); 
             return false;
         }
     }
@@ -110,7 +131,8 @@ public class Trem{
         }
     }
     public String toString(){
-        return "id Trem: "+id_Trem+" | Qnt Locomotivas:"+getQntLocomotivas()+" | Qnt Vagoes:"+getQuantidadeVagoes();
+        return "id Trem: "+id_Trem+" | Qnt Locomotivas:"+getQntLocomotivas()+" | Qnt Vagoes: "+getQuantidadeVagoes() +
+         " | Vag_Permitidos: "+ somaTotalVagoes() + " | Peso Max Permitido: "+ somaTotalPeso();
     }
 
 }
