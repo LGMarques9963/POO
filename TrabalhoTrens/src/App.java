@@ -6,25 +6,23 @@ public class App {
     public static void main(String[] args) throws Exception {
         
         GaragemLocomotiva garagemLocomotiva = new GaragemLocomotiva();
+        GaragemVagoes garagemVagoes = new GaragemVagoes();
+
+        
+        ArrayList<Trem> trens = new ArrayList<>();
+        ArrayList<Locomotiva> locomotivas = new ArrayList<>();//<-Ta aqui o erro do id da Locomotiva
         ArrayList<Vagao> vagoes = new ArrayList<>();
         
-        ArrayList<Locomotiva> locomotivas = new ArrayList<>();
-        ArrayList<Trem> trens = new ArrayList<>();
         int escolha;
-        Trem tremTeste;
 
         for(int i=0;i<=30;i++){
             Random r = new Random();
-            garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));
-            vagoes.add(new Vagao((r.nextInt(50)*10/2)));
+            garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));//<-Ta aqui o erro do id da Locomotiva
+            //vagoes.add(new Vagao((r.nextInt(50)*10/2)));
+            garagemVagoes.entradaVagao(new Vagao(r.nextInt(50)*10/2));
         }
         locomotivas = garagemLocomotiva.getLocomotivas();
-        trens.add(new Trem(locomotivas.get(1)));
-        tremTeste = trens.get(0);
-        System.out.println(tremTeste.engataLocomotiva(locomotivas.get(2)));
-        System.out.println(tremTeste.engataLocomotiva(locomotivas.get(2)));
-        System.out.println(tremTeste.desengataLocomotiva());
-        System.out.println(locomotivas.get(2).getTrem());
+        vagoes = garagemVagoes.getVagoes();
         //verififcar se não esta pasando uma caracter invalido
         Scanner s = new Scanner(System.in);
         do{
@@ -34,6 +32,7 @@ public class App {
          switch(escolha){
              case 1:
              // verificar se locomotiva ja oi adicionada em outro trem
+             // ta permitindo pegar a mesma locomotiva para cadastro em outros trens
                  int idLocomotiva;
                  System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
                  Scanner i = new Scanner(System.in);
@@ -44,12 +43,14 @@ public class App {
                  break;
              case 2:
              //Editar Trem
-                int idTrem;
+                int idTrem = 0;
                 Scanner l = new Scanner(System.in);
                 System.out.println("Digite o id do Trem a ser editado: ");
                 idTrem = l.nextInt();
-                idTrem = idTrem - 1;
+                System.out.println(idTrem);
                 System.out.println(trens.get(idTrem).toString());
+                idTrem--;
+                System.out.println(trens.get(idTrem).toString());//<-
                 Trem t = trens.get(idTrem);
                 int opc = 0;
                 l.reset();
@@ -65,7 +66,7 @@ public class App {
                             int idLoc;
                             System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
                             idLoc = l.nextInt();
-                            //idLoc = idLoc-1;
+                            idLoc = idLoc-1;
                             t.engataLocomotiva(locomotivas.get(idLoc));
                             System.out.println("Locomotiva :"+locomotivas.get(idLoc).toString() + "\nAdicionada ao Trem "+
                             t.toString());
@@ -76,7 +77,7 @@ public class App {
                             int idVag;
                             System.out.println("Digite o id d0 Vagao a ser adicionada ao Trem");
                             idVag = l.nextInt();
-                            idVag = idVag-1;
+                            idVag--;
                             t.engataVagao(vagoes.get(idVag));
                             System.out.println("Vagao :"+vagoes.get(idVag).toString() + "\nAdicionada ao Trem "+
                             t.toString());
@@ -99,8 +100,15 @@ public class App {
                                 }
                             }
                         break;
+                        //Listar Locomotivas Livres
                         case 4:
+                            for(int z = 0; z < locomotivas.size(); z++){
+                                if(locomotivas.get(z).getEstado() == true){
+                                    System.out.println(locomotivas.get(z));
+                                }
+                            }
                         break;
+                        //Listar todos os Vagões Livres
                         case 5:
                         break;
                         case 6:
@@ -125,6 +133,8 @@ public class App {
                 for(int z = 0; z < trens.size(); z++){
                     System.out.println(z+ " - "+trens.get(z).getID());
                 }
+                //System.out.println(trens.get(idTrem));
+                //System.out.println(trens.get(idTrem-1));
                 t = trens.get(idTrem-1);//<--erro
                 System.out.println(t.toString());
                 if(t.getQuantidadeVagoes() != 0){

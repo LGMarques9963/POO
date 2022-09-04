@@ -40,7 +40,7 @@ public class Locomotiva {
         return trem;
     }
     public String toString(){
-        return "ID: "+this.id+" | Peso Max: "+this.pesoMax+" | Nro Max de Vagoes: "+this.nroMaxVagoes;
+        return "ID: "+this.id+" | Peso Max: "+this.pesoMax+" | Nro Max de Vagoes: "+this.nroMaxVagoes+ " | Livre: "+getEstado();
     }
     
 }
