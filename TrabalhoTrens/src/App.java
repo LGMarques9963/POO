@@ -37,8 +37,13 @@ public class App {
                  System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
                  Scanner i = new Scanner(System.in);
                  idLocomotiva = i.nextInt();
-                 System.out.println(locomotivas.get(idLocomotiva-1).toString());//<-corrigir
-                 trens.add(new Trem(locomotivas.get(idLocomotiva)));
+                 if(locomotivas.get(idLocomotiva).getEstado() == true){
+                    System.out.println(locomotivas.get(idLocomotiva-1).toString());//<-corrigir
+                    trens.add(new Trem(locomotivas.get(idLocomotiva)));
+                    locomotivas.get(idLocomotiva).setEstado(false);
+                 }else{
+                    System.out.println("Locomotiva ja esta em uso em outro trem");
+                 }
                  idLocomotiva = 0;
                  break;
              case 2:
@@ -48,7 +53,6 @@ public class App {
                 System.out.println("Digite o id do Trem a ser editado: ");
                 idTrem = l.nextInt();
                 System.out.println(idTrem);
-                System.out.println(trens.get(idTrem).toString());
                 idTrem--;
                 System.out.println(trens.get(idTrem).toString());//<-
                 Trem t = trens.get(idTrem);
@@ -72,10 +76,11 @@ public class App {
                             t.toString());
                             l.reset();
                         break;
+                        //Insere Vagao
                         case 2:
                         //conferir se o trem existe
                             int idVag;
-                            System.out.println("Digite o id d0 Vagao a ser adicionada ao Trem");
+                            System.out.println("Digite o id do Vagao a ser adicionada ao Trem");
                             idVag = l.nextInt();
                             idVag--;
                             t.engataVagao(vagoes.get(idVag));
@@ -110,8 +115,16 @@ public class App {
                         break;
                         //Listar todos os Vagões Livres
                         case 5:
+                            for(int z = 0; z < vagoes.size(); z++){
+                                if(vagoes.get(z).getEstado() == true){
+                                    System.out.println(vagoes.get(z));
+                                }
+                            }
                         break;
-                        case 6:
+                        default:
+                            if(opc != 6){
+                                System.out.println("Escolha uma opcao valida !");
+                            }
                         break;
                     }
                 }while(opc != 6);
@@ -161,24 +174,5 @@ public class App {
                 break;
          }
         }while(escolha != 0);
-
-
-
-        Locomotiva l = new Locomotiva(500.00, 7);
-        Vagao v = new Vagao(100);
-        // Locomotiva l1 = new Locomotiva(450.00, 6);
-        // Vagao v1 = new Vagao(70);
-        Trem trem = new Trem(l);
-        // Trem trem1 = new Trem(l1);
-        // trem.engataLocomotiva(l1);
-        trem.engataVagao(v);
-        // // trem.engataLocomotiva(l);
-        // // trem.engataVagao(v);
-        // // trem.engataLocomotiva(l1);
-        // // trem.engataVagao(v1);
-        System.out.println(locomotivas.get(2).getId());
-        System.out.println(trem.getQuantidadeVagoes());
-        System.out.println(trem.getVagaoPosicao(0).getCapMax());
-        // System.out.println(trem.getLocomotivaPosicao(1).getNroMaxVagoes());
     }
 }
