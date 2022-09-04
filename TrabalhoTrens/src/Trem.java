@@ -72,10 +72,17 @@ public class Trem{
         }
     }
     //Soma do total de vagoes que as locomotivas aguentam
-    public int somaTotalVagoes(){
-        int vag_permitidos = 0;
+    public long somaTotalVagoes(){
+        long vag_permitidos = 0;
+        double porcentagem = 0;
         for(int i = 0; i < locomotivas.size(); i++){
-            vag_permitidos += locomotivas.get(i).getNroMaxVagoes(); 
+            if(i == 0){
+                vag_permitidos += locomotivas.get(i).getNroMaxVagoes(); 
+            }else{
+                vag_permitidos += locomotivas.get(i).getNroMaxVagoes();
+                porcentagem = Math.floor(vag_permitidos-(vag_permitidos/10));//->joga a porcentagem para baixo
+                vag_permitidos = Math.round(porcentagem);//converte para long
+            }
         }
         return vag_permitidos;
     }
