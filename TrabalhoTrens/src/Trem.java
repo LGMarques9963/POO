@@ -4,6 +4,7 @@ public class Trem{
     private ArrayList<Locomotiva> locomotivas;
     private ArrayList<Vagao> vagoes;
     private int usadosVagoes, usadosLocomotivas;
+    private boolean estado;
 
     private static int ultimoId = 0;
 
@@ -17,10 +18,18 @@ public class Trem{
 
         vagoes = new ArrayList<>();
         this.usadosVagoes = 0;
+        this.estado = true;
     }
 
     public int getID(){
-        return id_Trem;
+        return this.id_Trem;
+    }
+    public boolean getEstado(){
+        return this.estado;
+    }
+
+    public void setEstado(boolean estado){
+        this.estado = estado;
     }
 
     public int getQntLocomotivas(){
@@ -107,7 +116,7 @@ public class Trem{
             vag.setEstado(false);
             return true;
         }else{
-            System.out.println("Nao e possível adicionar esse vagao"); 
+            System.out.println("Nao e possivel adicionar esse vagao"); 
             return false;
         }
     }

@@ -30,6 +30,6 @@ public class Vagao {
     }
     @Override
     public String toString(){
-        return "id Vag:"+this.id_Vagao+" | Cap Max"+this.cap_max;
+        return "Id Vagao: "+this.id_Vagao+" | Capacidade Max: "+this.cap_max;
     }
 }
