@@ -142,13 +142,15 @@ public class App {
                 l = new Scanner(System.in);
                 idTrem = l.nextInt();
                 t = null;
+                idTrem--;
                 System.out.println(idTrem);
                 for(int z = 0; z < trens.size(); z++){
                     System.out.println(z+ " - "+trens.get(z).getID());
                 }
                 //System.out.println(trens.get(idTrem));
                 //System.out.println(trens.get(idTrem-1));
-                t = trens.get(idTrem-1);//<--erro
+                //if(trens.size() == 1) idTrem++;
+                t = trens.get(idTrem);//<--erro
                 System.out.println(t.toString());
                 if(t.getQuantidadeVagoes() != 0){
                     while(t.getQuantidadeVagoes() > 0){
@@ -163,6 +165,7 @@ public class App {
                         if(t.getQntLocomotivas() == 0){
                             System.out.println("Todas Locomotivas foram removidas com sucesso");
                             System.out.println("Trem id "+t.getID()+" removido com sucesso");
+                            //t = null;
                             trens.remove(t);
                         }
                     }
