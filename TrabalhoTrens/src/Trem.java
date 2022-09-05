@@ -1,24 +1,27 @@
 import java.util.ArrayList;
 
 public class Trem{
-    private int id_Trem;
+    private int idTrem,usadosVagoes, usadosLocomotivas;
     private ArrayList<Locomotiva> locomotivas;
     private ArrayList<Vagao> vagoes;
-    private int usadosVagoes, usadosLocomotivas;
+    private long vagoesPermitidos = 0; 
+    private double pesoMaximo = 0, pesoTotal = 0;
     private boolean estado;
 
     private static int ultimoId = 0;
 
     public Trem(Locomotiva locomotiva){
-        this.id_Trem = ultimoId + 1;
-        ultimoId = this.id_Trem;
+        this.idTrem = ultimoId + 1;
+        ultimoId = this.idTrem;
 
         if(locomotiva.getEstado() == true){
-            locomotiva.setEstado(false);
             locomotivas = new ArrayList<>();
             locomotivas.add(locomotiva);
+            locomotiva.setEstado(false);
             this.usadosLocomotivas = 1;
-            System.out.println("Trem Criado com Sucesso");
+            this.vagoesPermitidos += locomotiva.getNroMaxVagoes();
+            this.pesoMaximo += locomotiva.getPesoMax();
+
         }else{
             System.out.println("Locomotiva ja esta em uso em outro trem");
         }
@@ -27,12 +30,14 @@ public class Trem{
         vagoes = new ArrayList<>();
         this.usadosVagoes = 0;
         this.estado = true;
+
+        System.out.println("Trem Criado com Sucesso");
     }
 
     public int getID(){
-        return this.id_Trem;
+        return this.idTrem;
     }
-    
+
     public boolean getEstado(){
         return this.estado;
     }
@@ -49,71 +54,41 @@ public class Trem{
         return this.usadosVagoes;
     }
 
-    // Precisa desse método?
-    public Vagao getVagaoPosicao(int posicao){
-        if(posicao < 0 || posicao >= usadosVagoes){
-            return null;
-        }else{
-            return this.vagoes.get(posicao);
-        }
-        
-    }
+    public long getVagoesPermitidos(){ return this.vagoesPermitidos;}
 
-    // Precisa desse método?
-    public Locomotiva getLocomotivaPosicao(int posicao){
-        if(posicao < 0 || posicao >= usadosLocomotivas){
-            return null;
-        }else{
-            return this.locomotivas.get(posicao);
-        }
-    }
+    public double getPesoMax() { return this.pesoMaximo;}
+    
+    public double getPesoTotal() { return this.pesoTotal; }
 
-    public boolean engataLocomotiva(Locomotiva loc){
-        if (getQuantidadeVagoes() == 0 & loc.getEstado()){
-            locomotivas.add(loc);
+    public boolean engataLocomotiva(Locomotiva locomotiva){
+        if (getQuantidadeVagoes() == 0 & locomotiva.getEstado()){
+            double fator = 1- (this.getQntLocomotivas()*0.1);
+            locomotivas.add(locomotiva);
+            locomotiva.setEstado(false);
+            locomotiva.setTrem(this);            
             this.usadosLocomotivas++;
-            loc.setEstado(false);
-            loc.setTrem(this);
+            this.vagoesPermitidos += Math.round(Math.floor((locomotiva.getNroMaxVagoes() * fator)));
+            this.pesoMaximo += locomotiva.getPesoMax();
+
             return true;
         }else{
-            System.out.println("Nao e possivel utilizar essa locomotiva");
+            
             return false;
         }
     }
-    //Soma do total de vagoes que as locomotivas aguentam
-    public long somaTotalVagoes(){
-        long vag_permitidos = 0;
-        double porcentagem = 0;
-        for(int i = 0; i < locomotivas.size(); i++){
-            if(i == 0){
-                vag_permitidos += locomotivas.get(i).getNroMaxVagoes(); 
-            }else{
-                vag_permitidos += locomotivas.get(i).getNroMaxVagoes();
-                porcentagem = Math.floor(vag_permitidos-(vag_permitidos/10));//->joga a porcentagem para baixo
-                vag_permitidos = Math.round(porcentagem);//converte para long
-            }
-        }
-        return vag_permitidos;
-    }
-    //Soma do total de peso que as locomotivas aguentam
-    public double somaTotalPeso(){
-        double peso_max = 0;
-        for(int i = 0; i < locomotivas.size(); i++){
-            peso_max += locomotivas.get(i).getPesoMax(); 
-        }
-        return peso_max;
-    }
 
-    public boolean engataVagao(Vagao vag){
-        double peso_max_vag = 0;
-        for(int i = 0; i < vagoes.size(); i++){
-            peso_max_vag += vagoes.get(i).getCapMax();
-        }
-        peso_max_vag += vag.getCapMax();
-        if(locomotivas.size() > 0 & vag.getEstado() & somaTotalVagoes() > vagoes.size() & peso_max_vag <= somaTotalPeso()){
-            vagoes.add(vag);
+    public boolean engataVagao(Vagao vagao){
+        double pesoMaximoVagao = this.getPesoTotal() + vagao.getCapMax();
+
+        if(this.getQntLocomotivas() <= 0){
+            System.out.println("Não é possível adicionar um vagão sem que haja uma locomotiva engatada.");
+            return false;
+        }else if( (vagao.getEstado()) & (this.vagoesPermitidos > this.getQuantidadeVagoes()) & (pesoMaximoVagao <= this.getPesoMax()) ){
+            vagoes.add(vagao);
             this.usadosVagoes++;
-            vag.setEstado(false);
+            this.pesoTotal = pesoMaximoVagao;
+
+            vagao.setEstado(false);
             return true;
         }else{
             System.out.println("Nao e possivel adicionar esse vagao"); 
@@ -126,29 +101,51 @@ public class Trem{
             return false;
         }else{
             Vagao vagao = vagoes.get(getQuantidadeVagoes()-1);
-            vagao.setEstado(true);
-            vagoes.remove(getQuantidadeVagoes()-1);
-            this.usadosVagoes--;
-            return true;
+            if(vagoes.remove(vagao)){
+                vagao.setEstado(true);
+                System.out.println("(Removido Vagao) -> "+vagao.toString());
+                this.usadosVagoes--;
+                return true;
+            }else return false;
         }
     }
     
     public boolean desengataLocomotiva(){
         if(getQntLocomotivas() == 0){
-            System.out.println("Não há locomotivas engatadas"); // Temos que chamar o destrutor nesse caso
+            System.out.println("Não há locomotivas engatadas");
             return false;
         }else{
-            Locomotiva loc;
-            loc = locomotivas.get(getQntLocomotivas()-1);
-            loc.setEstado(true);
-            locomotivas.remove(getQntLocomotivas()-1);
-            this.usadosLocomotivas--;
-            return true;
+            Locomotiva locomotiva = locomotivas.get(getQntLocomotivas()-1);
+            if(locomotivas.remove(locomotiva)){
+                locomotiva.setEstado(true);
+                System.out.println("(Removida Locomotiva) -> "+locomotiva.toString());
+                this.usadosLocomotivas--;
+                return true;
+            }else return false;
         }
     }
+    public boolean removerTrem(){
+        
+        if(this.getQuantidadeVagoes() != 0){
+            while(this.getQuantidadeVagoes() > 0){
+                this.desengataVagao();
+            }
+
+            if(this.getQuantidadeVagoes() == 0) System.out.println("Todos Vagoes foram removidos com sucesso");
+
+        }else if(this.getQntLocomotivas() != 0){
+            while(this.getQntLocomotivas() > 0){
+                this.desengataLocomotiva();
+                if(this.getQntLocomotivas() == 0){
+                    System.out.println("Todas Locomotivas foram removidas com sucesso");
+                }
+            }
+        }
+        return true;
+    }
     public String toString(){
-        return "id Trem: "+id_Trem+" | Qnt Locomotivas:"+getQntLocomotivas()+" | Qnt Vagoes: "+getQuantidadeVagoes() +
-         " | Vag_Permitidos: "+ somaTotalVagoes() + " | Peso Max Permitido: "+ somaTotalPeso();
+        return "id Trem: "+idTrem+" | Qnt Locomotivas:"+getQntLocomotivas()+" | Qnt Vagoes: "+getQuantidadeVagoes() +
+         " | Vag_Permitidos: "+ getVagoesPermitidos() + " | Peso Max Permitido: "+ getPesoMax();
     }
 
 }
