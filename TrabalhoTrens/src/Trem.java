@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.ArrayList;
+
 public class Trem{
     private int id_Trem;
     private ArrayList<Locomotiva> locomotivas;
@@ -12,9 +13,16 @@ public class Trem{
         this.id_Trem = ultimoId + 1;
         ultimoId = this.id_Trem;
 
-        locomotivas = new ArrayList<>();
-        locomotivas.add(locomotiva);
-        this.usadosLocomotivas = 1;
+        if(locomotiva.getEstado() == true){
+            locomotiva.setEstado(false);
+            locomotivas = new ArrayList<>();
+            locomotivas.add(locomotiva);
+            this.usadosLocomotivas = 1;
+            System.out.println("Trem Criado com Sucesso");
+        }else{
+            System.out.println("Locomotiva ja esta em uso em outro trem");
+        }
+
 
         vagoes = new ArrayList<>();
         this.usadosVagoes = 0;
@@ -24,6 +32,7 @@ public class Trem{
     public int getID(){
         return this.id_Trem;
     }
+    
     public boolean getEstado(){
         return this.estado;
     }
@@ -48,15 +57,6 @@ public class Trem{
             return this.vagoes.get(posicao);
         }
         
-       // return this.vagoes.get(posicao);
-        
-        // Vagao vag_Posi = null;
-        // for(int i=0;i < vagoes.size(); i++){
-        //     if(posicao == vagoes.get(i).getId()){
-        //         vag_Posi = vagoes.get(i);
-        //     }
-        // }
-        // return vag_Posi;
     }
 
     // Precisa desse método?
@@ -76,7 +76,7 @@ public class Trem{
             loc.setTrem(this);
             return true;
         }else{
-            System.out.println("Não é possível adicionar essa locomotiva");
+            System.out.println("Nao e possivel utilizar essa locomotiva");
             return false;
         }
     }

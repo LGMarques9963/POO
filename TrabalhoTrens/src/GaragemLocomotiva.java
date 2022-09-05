@@ -1,12 +1,9 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GaragemLocomotiva{
     ArrayList<Locomotiva> locomotivas = new ArrayList<>();
 
     public boolean entraLocomotiva(Locomotiva locomotiva){
-        Random r = new Random();
-        //Peso Max - Num de Vagoes
         locomotivas.add(locomotiva);
         return true;
     }
@@ -24,7 +21,7 @@ public class GaragemLocomotiva{
         return true;
     }
 
-    public ArrayList getLocomotivas(){
+    public ArrayList<Locomotiva> getLocomotivas(){
         return locomotivas;
     }
 }

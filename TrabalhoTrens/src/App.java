@@ -10,17 +10,17 @@ public class App {
 
         
         ArrayList<Trem> trens = new ArrayList<>();
-        ArrayList<Locomotiva> locomotivas = new ArrayList<>();//<-Ta aqui o erro do id da Locomotiva
+        ArrayList<Locomotiva> locomotivas = new ArrayList<>();
         ArrayList<Vagao> vagoes = new ArrayList<>();
         
         int escolha;
 
         for(int i=0;i<=30;i++){
             Random r = new Random();
-            garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*10/2), r.nextInt(i+10)));//<-Ta aqui o erro do id da Locomotiva
-            //vagoes.add(new Vagao((r.nextInt(50)*10/2)));
+            garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*(10/2)), r.nextInt(i+10)));
             garagemVagoes.entradaVagao(new Vagao(r.nextInt(50)*10/2));
         }
+
         locomotivas = garagemLocomotiva.getLocomotivas();
         vagoes = garagemVagoes.getVagoes();
         //verififcar se não esta pasando uma caracter invalido
@@ -32,39 +32,44 @@ public class App {
          switch(escolha){
             //Criar Trem
              case 1:
-             // verificar se locomotiva ja foi adicionada em outro trem
-             // ta permitindo pegar a mesma locomotiva para cadastro em outros trens
-                 int idLocomotiva;
-                 System.out.println("Digite o id da locomotiva a ser adicionada ao Trem: ");
-                 Scanner i = new Scanner(System.in);
-                 idLocomotiva = i.nextInt();
-                 idLocomotiva--;
-                 //Verifica o Estado da Locomotiva
-                 if(locomotivas.get(idLocomotiva).getEstado() == true){
-                    trens.add(new Trem(locomotivas.get(idLocomotiva)));
-                    locomotivas.get(idLocomotiva).setEstado(false);
-                    System.out.println("Trem Criado com Sucesso");
-                 }else{
-                    System.out.println("Locomotiva ja esta em uso em outro trem");
-                 }
-                 break;
+                int idLocomotiva;
+                System.out.println("Digite o id da locomotiva a ser adicionada ao Trem: ");
+                Scanner i = new Scanner(System.in);
+                idLocomotiva = i.nextInt();
+                idLocomotiva--;
+                trens.add(new Trem(locomotivas.get(idLocomotiva)));
+                break;
+
              case 2:
              //Editar Trem
                 int idTrem = 0;
                 Scanner l = new Scanner(System.in);
-                System.out.println("Digite o id do Trem a ser editado: ");
-                idTrem = l.nextInt();
                 Trem t = null;
-                //verifica o idTrem é o mesmo passado
-                for(int z = 0; z < trens.size(); z++){
-                    if(trens.get(z).getID() == idTrem){
-                        t = trens.get(z);
-                        break;
+                do{
+
+                    System.out.println("Digite o id do Trem a ser editado: ");
+                    idTrem = l.nextInt();
+                    
+
+                    //verifica o idTrem é o mesmo passado
+                    for(int z = 0; z < trens.size(); z++){
+                        if(trens.get(z).getID() == idTrem){
+                            t = trens.get(z);
+                            break;
+                        }
                     }
-                }
+
+                    if(t==null){
+                        System.out.println("Trem inválido!");
+                    }
+
+                    l.reset();
+                    
+                }while(t==null);
+
                 System.out.println("> "+t+"\n");
                 int opc = 0;
-                l.reset();
+
                 do{
                     System.out.println("Escolha uma acao a realizar: \n 1 - Inserir uma Locomotiva\n 2 - Inserir um Vagao"+
                             "\n 3 - Remover o ultimo Item \n 4 - Listar as Locomotivas Livres \n 5 - Listar vagões Livres \n 6 - Encerrar a Edição");
@@ -77,17 +82,14 @@ public class App {
                             System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
                             idLoc = l.nextInt();
                             idLoc--;
-                            //Verifica o estado da locomotiva
-                            if(locomotivas.get(idLoc).getEstado() == true){
-                                t.engataLocomotiva(locomotivas.get(idLoc));
-                                locomotivas.get(idLoc).setEstado(false);
+
+                            if(t.engataLocomotiva(locomotivas.get(idLoc))){
                                 System.out.println("> "+t);
                                 System.out.println("(Inserido) -> "+locomotivas.get(idLoc).toString());
-                            }else{
-                                System.out.println("Nao e possivel utilizar essa locomotiva");
                             }
                             l.reset();
                         break;
+                        
                         //Insere Vagao
                         case 2:
                             int idVag;
@@ -189,6 +191,8 @@ public class App {
                 break;
          }
         }while(escolha != 0);
+
+        s.close();
         System.out.println("Encerrando o Programa...");
     }
 }
