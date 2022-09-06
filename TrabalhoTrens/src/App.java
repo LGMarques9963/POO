@@ -2,6 +2,21 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class App {
+    public static int lerOpcao(Scanner s){
+        boolean isString;
+        do{
+            try{
+                return s.nextInt();
+            }catch(java.util.InputMismatchException e){
+                System.out.println("Insira um valor inteiro");
+                isString = true;
+            }finally{
+                s.nextLine();
+            }  
+        }while(isString);
+        
+        return -1;
+    }
     public static void main(String[] args) throws Exception {
         
         GaragemLocomotiva garagemLocomotiva = new GaragemLocomotiva();
@@ -13,26 +28,30 @@ public class App {
         Vagao vagao;
         Trem trem;
 
+        Scanner s = new Scanner(System.in);
+
         for(int i=0;i<=30;i++){
             Random r = new Random();
             garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*(10/2)), r.nextInt(i+10)));
             garagemVagoes.entradaVagao(new Vagao(r.nextInt(50)*10/2));
         }
 
-        
-        //verififcar se não esta pasando uma caracter invalido
-        Scanner s = new Scanner(System.in);
         do{
             System.out.println("\nEscolha uma acao a realizar: \n 1 - "+ 
             "Criar um Trem;\n 2 - Editar um Trem;\n 3 - Listar todos os Trens;\n 4 - Desfazer um Trem;\n 0 - Sair\n");
-            escolha = s.nextInt();
+            escolha = lerOpcao(s);
 
             switch(escolha){
                 //Criar Trem
                 case 1:
-                    System.out.println("Digite o id da locomotiva a ser adicionada ao Trem: ");
-                    Scanner i = new Scanner(System.in);
-                    locomotiva = garagemLocomotiva.getLocomotiva(i.nextInt());
+                    
+                    locomotiva = null;
+
+                    do{
+                        System.out.println("Digite o id da locomotiva a ser adicionada ao Trem: ");
+                        locomotiva = garagemLocomotiva.getLocomotiva(lerOpcao(s));
+                        if(locomotiva == null) System.out.println("Locomotiva não encontrada");
+                    }while(locomotiva==null);
 
                     garagemTrem.addTrem(new Trem(locomotiva));
 
@@ -40,14 +59,12 @@ public class App {
 
                 //Editar Trem
                 case 2:
-                    Scanner l = new Scanner(System.in);
                     trem = null;
                     
                     do{
                         System.out.println("Digite o id do Trem a ser editado: ");
-                        trem = garagemTrem.getTrem(l.nextInt());
-                        if(trem == null) System.out.println("Trem não encontrado");
-                        l.reset();                     
+                        trem = garagemTrem.getTrem(lerOpcao(s));
+                        if(trem == null) System.out.println("Trem não encontrado");                  
                     }while(trem==null);
 
                     System.out.println("> "+trem+"\n");
@@ -57,15 +74,17 @@ public class App {
                         
                         System.out.println("Escolha uma acao a realizar: \n 1 - Inserir uma Locomotiva\n 2 - Inserir um Vagao"+
                                 "\n 3 - Remover o ultimo Item \n 4 - Listar as Locomotivas Livres \n 5 - Listar vagões Livres \n 6 - Encerrar a Edição");
-                                
-                        opcao = l.nextInt();
-
+                        try{     
+                            opcao = lerOpcao(s);
+                        }catch(java.util.InputMismatchException e){
+                            System.out.println("Insera um caracter válido");
+                        }
                         switch(opcao){
                             //inserir locomotiva
                             case 1:
 
                                 System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
-                                locomotiva = garagemLocomotiva.getLocomotiva(l.nextInt());
+                                locomotiva = garagemLocomotiva.getLocomotiva(lerOpcao(s));
 
                                 if(locomotiva == null){ System.out.println("Locomotiva não localizada\n"); }
 
@@ -77,13 +96,12 @@ public class App {
                                     System.out.println("Nao é possivel utilizar essa locomotiva\n");
                                 }
 
-                                l.reset();
                             break;
                             
                             //Insere Vagao
                             case 2:
                                 System.out.println("Digite o id do Vagao a ser adicionada ao Trem:");
-                                vagao = garagemVagoes.getVagao(l.nextInt());
+                                vagao = garagemVagoes.getVagao(lerOpcao(s));
                                 
                                 if(vagao == null) { System.out.println("Vagão não localizado\n"); }
                                 else if(trem.engataVagao(vagao)){
@@ -98,6 +116,7 @@ public class App {
                             //verifica se é os vagoes estão vazios, seguido da locomotiva, caso não tenha mais locomotivas, desfaz o trem
                                 if(trem.getQuantidadeVagoes() > 0){
                                     if(!trem.desengataVagao()) System.out.println("Erro ao desengatar vagao");
+
                                 }else if(trem.getQntLocomotivas() >= 0){
                                     if(!trem.desengataLocomotiva()) System.out.println("Erro ao desengatar locomotiva");
                                     
@@ -144,14 +163,11 @@ public class App {
                 do{
 
                     System.out.println("Digite o id do Trem a ser Removido: ");
-                    l = new Scanner(System.in);
                     
-                    trem = garagemTrem.getTrem(l.nextInt());
+                    trem = garagemTrem.getTrem(lerOpcao(s));
 
                     if(trem==null) System.out.println("Trem não localizado!");
 
-                    l.reset();
-                    
                 }while(trem==null);
 
                 System.out.println("> "+trem.toString());
@@ -160,7 +176,7 @@ public class App {
                 
                 break;
              default:
-                if(escolha != 0)System.out.println("Caracter digitado invalido !");
+                if(escolha != 0) System.out.println("Opção inválida!");
                 break;
          }
         }while(escolha != 0);
