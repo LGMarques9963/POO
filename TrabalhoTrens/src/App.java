@@ -29,10 +29,13 @@ public class App {
         Trem trem;
 
         Scanner s = new Scanner(System.in);
-
+        
+        garagemLocomotiva.entraLocomotiva(new Locomotiva(1, 4.5, 6));
+        garagemLocomotiva.entraLocomotiva(new Locomotiva(2, 4.5, 6));
+        garagemLocomotiva.entraLocomotiva(new Locomotiva(3, 4.5, 6));
+        garagemLocomotiva.entraLocomotiva(new Locomotiva(4, 4.5, 6));
         for(int i=0;i<=30;i++){
             Random r = new Random();
-            garagemLocomotiva.entraLocomotiva(new Locomotiva((r.nextInt(100)*(10/2)), r.nextInt(i+10)));
             garagemVagoes.entradaVagao(new Vagao(r.nextInt(50)*10/2));
         }
 
