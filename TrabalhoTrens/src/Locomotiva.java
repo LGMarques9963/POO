@@ -1,46 +1,31 @@
-public class Locomotiva {
-    private int id;
-    private double pesoMax;
+public class Locomotiva extends ElementoTrem{
     private int nroMaxVagoes;
-    private Trem trem;
-    private static int ultimoId = 0;
     private boolean livre;
 
-    public Locomotiva(double pesoMax, int nroMaxVagoes) {
-        this.id = ultimoId + 1;
-        ultimoId = this.id;
-        this.pesoMax = pesoMax;
+    public Locomotiva(int codigo,double cap_max, int nroMaxVagoes) {
+        super(codigo, cap_max);
         this.nroMaxVagoes = nroMaxVagoes;
         this.livre = true;
     }
     
-    public void setTrem(Trem trem) {
-        this.trem = trem;
-    }
-
     public void setEstado(boolean livre){
         this.livre = livre;
     }
-
+    public double getCap_Max_Locomotiva(){
+        return super.getCap_max();
+    }
 
     public boolean getEstado(){
         return this.livre;
     }
     
-    public int getId() {
-        return id;
-    }
-    public double getPesoMax() {
-        return pesoMax;
-    }
     public int getNroMaxVagoes() {
         return nroMaxVagoes;
     }
-    public Trem getTrem() {//Não seria num_identificador do trem, no uml ta como int
-        return trem;
-    }
-    public String toString(){
-        return "Id Locomotiva: "+this.id+" | Peso Max: "+this.pesoMax+" | Nro Max de Vagoes: "+this.nroMaxVagoes;
+
+    @Override
+    public String toString() {
+        return "Locomotiva [livre=" + livre + ", nroMaxVagoes=" + nroMaxVagoes + "]";
     }
     
 }

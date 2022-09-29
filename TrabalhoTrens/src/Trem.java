@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class Trem{
     private int idTrem,usadosVagoes, usadosLocomotivas;
-    private ArrayList<Locomotiva> locomotivas;
-    private ArrayList<Vagao> vagoes;
+    private ArrayList<Vagao> vagoes;//Remmover
     private long vagoesPermitidos = 0; 
     private double pesoMaximo = 0, pesoTotal = 0;
     private boolean estado;
+    ArrayList<Object> lst = new ArrayList<>();
 
     private static int ultimoId = 0;
 
@@ -15,12 +15,11 @@ public class Trem{
         ultimoId = this.idTrem;
 
         if(locomotiva.getEstado() == true){
-            locomotivas = new ArrayList<>();
-            locomotivas.add(locomotiva);
+            lst.add(locomotiva);
             locomotiva.setEstado(false);
             this.usadosLocomotivas = 1;
             this.vagoesPermitidos += locomotiva.getNroMaxVagoes();
-            this.pesoMaximo += locomotiva.getPesoMax();
+            this.pesoMaximo += locomotiva.getCap_Max_Locomotiva();
 
         }else{
             System.out.println("Locomotiva ja esta em uso em outro trem");
@@ -63,12 +62,12 @@ public class Trem{
     public boolean engataLocomotiva(Locomotiva locomotiva){
         if (getQuantidadeVagoes() == 0 & locomotiva.getEstado()){
             double fator = 1- (this.getQntLocomotivas()*0.1);
-            locomotivas.add(locomotiva);
+            lst.add(locomotiva);
             locomotiva.setEstado(false);
             locomotiva.setTrem(this);            
             this.usadosLocomotivas++;
             this.vagoesPermitidos += Math.round(Math.floor((locomotiva.getNroMaxVagoes() * fator)));
-            this.pesoMaximo += locomotiva.getPesoMax();
+            this.pesoMaximo += locomotiva.getCap_Max_Locomotiva();
 
             return true;
         }else{
@@ -115,8 +114,8 @@ public class Trem{
             System.out.println("Não há locomotivas engatadas");
             return false;
         }else{
-            Locomotiva locomotiva = locomotivas.get(getQntLocomotivas()-1);
-            if(locomotivas.remove(locomotiva)){
+            Locomotiva locomotiva = (Locomotiva)lst.get(getQntLocomotivas()-1);
+            if(lst.remove(locomotiva)){
                 locomotiva.setEstado(true);
                 System.out.println("(Removida Locomotiva) -> "+locomotiva.toString());
                 this.usadosLocomotivas--;
