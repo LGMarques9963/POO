@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Trem{
     private int idTrem,usadosVagoes, usadosLocomotivas;
-    private ArrayList<Vagao> vagoes;//Remmover
     private long vagoesPermitidos = 0; 
     private double pesoMaximo = 0, pesoTotal = 0;
     private boolean estado;
@@ -26,7 +25,7 @@ public class Trem{
         }
 
 
-        vagoes = new ArrayList<>();
+        //vagoes = new ArrayList<>();
         this.usadosVagoes = 0;
         this.estado = true;
 
@@ -83,7 +82,7 @@ public class Trem{
             System.out.println("Não é possível adicionar um vagão sem que haja uma locomotiva engatada.");
             return false;
         }else if( (vagao.getEstado()) & (this.vagoesPermitidos > this.getQuantidadeVagoes()) & (pesoMaximoVagao <= this.getPesoMax()) ){
-            vagoes.add(vagao);
+            lst.add(vagao);
             this.usadosVagoes++;
             this.pesoTotal = pesoMaximoVagao;
 
@@ -99,8 +98,10 @@ public class Trem{
         if(getQuantidadeVagoes() == 0){
             return false;
         }else{
-            Vagao vagao = vagoes.get(getQuantidadeVagoes()-1);
-            if(vagoes.remove(vagao)){
+            System.out.println("->"+(getQuantidadeVagoes()-1));
+            System.out.println("->"+(getQuantidadeVagoes()));
+            Vagao vagao = (Vagao)lst.get(getQuantidadeVagoes());
+            if(lst.remove(vagao)){
                 vagao.setEstado(true);
                 System.out.println("(Removido Vagao) -> "+vagao.toString());
                 this.usadosVagoes--;

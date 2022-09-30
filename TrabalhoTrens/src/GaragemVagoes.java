@@ -19,8 +19,8 @@ public class GaragemVagoes {
     public Vagao getVagao(int idVagao){
         Vagao vagNull = null;
 
-        for(Vagao vagao : vagoes){
-            if(idVagao == vagao.getId()) return vagao;
+        for(ElementoTrem elementoTrem : vagoes){
+            if(idVagao == elementoTrem.getCodigo()) return (Vagao)elementoTrem;
         }
         
         return vagNull;

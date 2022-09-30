@@ -17,7 +17,6 @@ public class GaragemLocomotiva{
         }
 
     }
-
     public Locomotiva getLocomotiva(int idLocomotiva){
         Locomotiva locNull = null;
 
