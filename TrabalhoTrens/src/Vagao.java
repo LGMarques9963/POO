@@ -1,7 +1,7 @@
 public class Vagao extends ElementoTrem{
     private boolean livre;
-    public Vagao(int codigo,double cap_max){
-        super(codigo, cap_max);
+    public Vagao(double cap_max){
+        super(cap_max);
         this.livre = true;
     }
 

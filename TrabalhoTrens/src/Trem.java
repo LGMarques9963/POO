@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
 public class Trem{
-    private int idTrem,usadosVagoes, usadosLocomotivas;
+    private int idTrem, usadosVagoes, usadosLocomotivas;
     private long vagoesPermitidos = 0; 
     private double pesoMaximo = 0, pesoTotal = 0;
     private boolean estado;
+
     ArrayList<Object> lst = new ArrayList<>();
 
     private static int ultimoId = 0;
@@ -24,8 +25,6 @@ public class Trem{
             System.out.println("Locomotiva ja esta em uso em outro trem");
         }
 
-
-        //vagoes = new ArrayList<>();
         this.usadosVagoes = 0;
         this.estado = true;
 
@@ -59,6 +58,7 @@ public class Trem{
     public double getPesoTotal() { return this.pesoTotal; }
 
     public boolean engataLocomotiva(Locomotiva locomotiva){
+
         if (getQuantidadeVagoes() == 0 & locomotiva.getEstado()){
             double fator = 1- (this.getQntLocomotivas()*0.1);
             lst.add(locomotiva);
@@ -100,7 +100,7 @@ public class Trem{
         }else{
             System.out.println("->"+(getQuantidadeVagoes()-1));
             System.out.println("->"+(getQuantidadeVagoes()));
-            Vagao vagao = (Vagao)lst.get(getQuantidadeVagoes());
+            Vagao vagao = (Vagao) lst.get(lst.size()-1);
             if(lst.remove(vagao)){
                 vagao.setEstado(true);
                 System.out.println("(Removido Vagao) -> "+vagao.toString());
@@ -115,7 +115,7 @@ public class Trem{
             System.out.println("Não há locomotivas engatadas");
             return false;
         }else{
-            Locomotiva locomotiva = (Locomotiva)lst.get(getQntLocomotivas()-1);
+            Locomotiva locomotiva = (Locomotiva)lst.get(lst.size()-1);
             if(lst.remove(locomotiva)){
                 locomotiva.setEstado(true);
                 System.out.println("(Removida Locomotiva) -> "+locomotiva.toString());

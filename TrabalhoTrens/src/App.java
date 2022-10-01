@@ -1,4 +1,4 @@
-import java.util.Random;
+//import java.util.Random;
 import java.util.Scanner;
 
 public class App {
@@ -19,10 +19,11 @@ public class App {
     }
     public static void main(String[] args) throws Exception {
         
-        GaragemLocomotiva garagemLocomotiva = new GaragemLocomotiva();
-        GaragemVagoes garagemVagoes = new GaragemVagoes();
+        //garagem garagem = new garagem();
+        //garagem garagem = new garagem();
         GaragemTrem garagemTrem = new GaragemTrem();
         
+        Garagem garagem = new Garagem();
         int escolha;
         Locomotiva locomotiva;
         Vagao vagao;
@@ -30,17 +31,17 @@ public class App {
 
         Scanner s = new Scanner(System.in);
         
-        garagemLocomotiva.entraLocomotiva(new Locomotiva(1, 4.5, 6));
-        garagemLocomotiva.entraLocomotiva(new Locomotiva(2, 4.5, 6));
-        garagemLocomotiva.entraLocomotiva(new Locomotiva(3, 4.5, 6));
-        garagemLocomotiva.entraLocomotiva(new Locomotiva(4, 4.5, 6));
-        garagemVagoes.entradaVagao(new Vagao(5, 1));
-        garagemVagoes.entradaVagao(new Vagao(6, 1));
-        garagemVagoes.entradaVagao(new Vagao(7, 1));
-        garagemVagoes.entradaVagao(new Vagao(8, 1));
+        garagem.adicionaElemento(new Locomotiva(4.5, 6));
+        garagem.adicionaElemento(new Locomotiva(4.5, 6));
+        garagem.adicionaElemento(new Locomotiva(4.5, 6));
+        garagem.adicionaElemento(new Locomotiva(4.5, 6));
+        garagem.adicionaElemento(new Vagao(1));
+        garagem.adicionaElemento(new Vagao(1));
+        garagem.adicionaElemento(new Vagao(1));
+        garagem.adicionaElemento(new Vagao(1));
         /*for(int i=0;i<=30;i++){
             Random r = new Random();
-            garagemVagoes.entradaVagao(new Vagao(r.nextInt(50)*10/2));
+            garagem.adicionaElemento(new Vagao(r.nextInt(50)*10/2));
         }*/
 
         do{
@@ -56,9 +57,9 @@ public class App {
 
                     do{
                         System.out.println("Digite o id da locomotiva a ser adicionada ao Trem: ");
-                        locomotiva = garagemLocomotiva.getLocomotiva(lerOpcao(s));
+                        locomotiva = (Locomotiva) garagem.getElemento(lerOpcao(s));
                         if(locomotiva == null) System.out.println("Locomotiva não encontrada");
-                    }while(locomotiva==null);
+                    }while(locomotiva == null);
 
                     garagemTrem.addTrem(new Trem(locomotiva));
 
@@ -91,12 +92,12 @@ public class App {
                             case 1:
 
                                 System.out.println("Digite o id da locomotiva a ser adicionada ao Trem");
-                                locomotiva = garagemLocomotiva.getLocomotiva(lerOpcao(s));
+                                locomotiva = (Locomotiva) garagem.getElemento(lerOpcao(s));
 
                                 if(locomotiva == null){ System.out.println("Locomotiva não localizada\n"); }
 
                                 else if(trem.engataLocomotiva(locomotiva)){
-                                    garagemLocomotiva.removeLocomotiva(locomotiva);
+                                    garagem.removeElemento(locomotiva);
                                     System.out.println("> "+trem);
                                     System.out.println("(Inserido) -> "+locomotiva.toString());
                                 }else{
@@ -108,7 +109,7 @@ public class App {
                             //Insere Vagao
                             case 2:
                                 System.out.println("Digite o id do Vagao a ser adicionada ao Trem:");
-                                vagao = garagemVagoes.getVagao(lerOpcao(s));
+                                vagao = (Vagao) garagem.getElemento(lerOpcao(s));
                                 
                                 if(vagao == null) { System.out.println("Vagão não localizado\n"); }
                                 else if(trem.engataVagao(vagao)){
@@ -139,13 +140,13 @@ public class App {
                             //Listar Locomotivas Livres
                             case 4:
                                 System.out.println("\nListagem das Locomotivas Livres:\n");
-                                garagemLocomotiva.listarLocomotivas();
+                                garagem.listarLocomotivas();
                                 break;
 
                             //Listar todos os Vagões Livres
                             case 5:
                                 System.out.println("\nListagem dos Vagoes Livres:\n");
-                                garagemVagoes.listarVagoes();
+                                garagem.listarVagoes();
                             break;
 
                             default:

@@ -2,11 +2,23 @@ public abstract class ElementoTrem{
     private int codigo;
     private double cap_max;
     private Trem trem;
+    private boolean livre;
+    private static int ultimoId = 0;
 
-    public ElementoTrem(int codigo, double cap_max) {
-        this.codigo = codigo;
+    public ElementoTrem(double cap_max) {
+        this.codigo = ultimoId + 1;
+        ultimoId = this.codigo;
         this.cap_max = cap_max;
         this.trem = null;
+        this.livre = true;
+    }
+
+    public boolean getEstado(){
+        return this.livre;
+    }
+
+    public void setEstado(boolean livre){
+        this.livre = livre;
     }
     public int getCodigo() {
         return codigo;

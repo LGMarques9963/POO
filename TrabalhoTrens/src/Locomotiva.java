@@ -2,8 +2,8 @@ public class Locomotiva extends ElementoTrem{
     private int nroMaxVagoes;
     private boolean livre;
 
-    public Locomotiva(int codigo,double cap_max, int nroMaxVagoes) {
-        super(codigo, cap_max);
+    public Locomotiva(double cap_max, int nroMaxVagoes) {
+        super(cap_max);
         this.nroMaxVagoes = nroMaxVagoes;
         this.livre = true;
     }
