@@ -1,13 +1,7 @@
-public class Vagao {
-    private int id_Vagao;
-    private double cap_max;
-    private Trem trem;
-    private static int ultimoId = 0;
+public class Vagao extends ElementoTrem{
     private boolean livre;
-    public Vagao(double cap_max){
-        this.id_Vagao = ultimoId + 1;
-        ultimoId = this.id_Vagao;
-        this.cap_max = cap_max;
+    public Vagao(int codigo,double cap_max){
+        super(codigo, cap_max);
         this.livre = true;
     }
 
@@ -19,17 +13,14 @@ public class Vagao {
         this.livre = livre;
     }
 
-    public int getId(){
-        return id_Vagao;
+    public int getCodigo_Vagao(){
+        return super.getCodigo();
     }
     public double getCapMax(){
-        return cap_max;
-    }
-    public int getComposicao(){
-        return trem.getID();
+        return super.getCap_max();
     }
     @Override
     public String toString(){
-        return "Id Vagao: "+this.id_Vagao+" | Capacidade Max: "+this.cap_max;
+        return "Id Vagao: "+getCodigo_Vagao()+" | Capacidade Max: "+getCap_max();
     }
 }

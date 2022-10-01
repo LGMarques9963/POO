@@ -17,12 +17,11 @@ public class GaragemLocomotiva{
         }
 
     }
-
     public Locomotiva getLocomotiva(int idLocomotiva){
         Locomotiva locNull = null;
 
-        for(Locomotiva locomotiva : locomotivas){
-            if(idLocomotiva == locomotiva.getId()) return locomotiva;
+        for(ElementoTrem elementoTrem : locomotivas){
+            if(idLocomotiva == elementoTrem.getCodigo()) return (Locomotiva)elementoTrem;
         }
         
         return locNull;

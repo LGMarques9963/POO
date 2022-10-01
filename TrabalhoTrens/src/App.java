@@ -34,10 +34,14 @@ public class App {
         garagemLocomotiva.entraLocomotiva(new Locomotiva(2, 4.5, 6));
         garagemLocomotiva.entraLocomotiva(new Locomotiva(3, 4.5, 6));
         garagemLocomotiva.entraLocomotiva(new Locomotiva(4, 4.5, 6));
-        for(int i=0;i<=30;i++){
+        garagemVagoes.entradaVagao(new Vagao(5, 1));
+        garagemVagoes.entradaVagao(new Vagao(6, 1));
+        garagemVagoes.entradaVagao(new Vagao(7, 1));
+        garagemVagoes.entradaVagao(new Vagao(8, 1));
+        /*for(int i=0;i<=30;i++){
             Random r = new Random();
             garagemVagoes.entradaVagao(new Vagao(r.nextInt(50)*10/2));
-        }
+        }*/
 
         do{
             System.out.println("\nEscolha uma acao a realizar: \n 1 - "+ 
