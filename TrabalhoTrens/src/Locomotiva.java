@@ -13,7 +13,7 @@ public class Locomotiva extends ElementoTrem{
 
     @Override
     public String toString() {
-        return "Locomotiva [livre=" + super.getEstado() + ", nroMaxVagoes=" + getNroMaxVagoes() + "]";
+        return "Id Locomotiva: "+super.getCodigo()+" | Capacidade Max: "+getCapacidadeMaxima();
     }
     
 }

@@ -1,4 +1,4 @@
-//import java.util.Random;
+import java.util.Random;
 import java.util.Scanner;
 
 public class App {
@@ -33,14 +33,12 @@ public class App {
         garagem.adicionaElemento(new Locomotiva(4.5, 6));
         garagem.adicionaElemento(new Locomotiva(4.5, 6));
         garagem.adicionaElemento(new Locomotiva(4.5, 6));
-        garagem.adicionaElemento(new Vagao(1));
-        garagem.adicionaElemento(new Vagao(1));
-        garagem.adicionaElemento(new Vagao(1));
-        garagem.adicionaElemento(new Vagao(1));
-        /*for(int i=0;i<=30;i++){
+
+        for(int i=0;i<=30;i++){
             Random r = new Random();
             garagem.adicionaElemento(new Vagao(r.nextInt(50)*10/2));
-        }*/
+            garagem.adicionaElemento(new Locomotiva(r.nextInt(50)*10/2, r.nextInt(20)));
+        }
 
         do{
             System.out.println("\nEscolha uma acao a realizar: \n 1 - "+ 
