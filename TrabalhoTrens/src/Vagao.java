@@ -1,26 +1,12 @@
 public class Vagao extends ElementoTrem{
-    private boolean livre;
-    public Vagao(int codigo,double cap_max){
-        super(codigo, cap_max);
-        this.livre = true;
+
+    public Vagao(double capacidadeMaxima){
+        super(capacidadeMaxima);
     }
 
-    public boolean getEstado(){
-        return this.livre;
-    }
 
-    public void setEstado(boolean livre){
-        this.livre = livre;
-    }
-
-    public int getCodigo_Vagao(){
-        return super.getCodigo();
-    }
-    public double getCapMax(){
-        return super.getCap_max();
-    }
     @Override
     public String toString(){
-        return "Id Vagao: "+getCodigo_Vagao()+" | Capacidade Max: "+getCap_max();
+        return "Id Vagao: "+super.getCodigo()+" | Capacidade Max: "+getCapacidadeMaxima();
     }
 }
