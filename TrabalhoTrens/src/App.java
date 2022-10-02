@@ -19,8 +19,6 @@ public class App {
     }
     public static void main(String[] args) throws Exception {
         
-        //garagem garagem = new garagem();
-        //garagem garagem = new garagem();
         GaragemTrem garagemTrem = new GaragemTrem();
         
         Garagem garagem = new Garagem();
@@ -46,7 +44,7 @@ public class App {
 
         do{
             System.out.println("\nEscolha uma acao a realizar: \n 1 - "+ 
-            "Criar um Trem;\n 2 - Editar um Trem;\n 3 - Listar todos os Trens;\n 4 - Desfazer um Trem;\n 0 - Sair\n");
+                                "Criar um Trem;\n 2 - Editar um Trem;\n 3 - Listar todos os Trens;\n 4 - Desfazer um Trem;\n 0 - Sair\n");
             escolha = lerOpcao(s);
 
             switch(escolha){
@@ -59,6 +57,7 @@ public class App {
                         System.out.println("Digite o id da locomotiva a ser adicionada ao Trem: ");
                         locomotiva = (Locomotiva) garagem.getElemento(lerOpcao(s));
                         if(locomotiva == null) System.out.println("Locomotiva não encontrada");
+                        
                     }while(locomotiva == null);
 
                     garagemTrem.addTrem(new Trem(locomotiva));
@@ -180,13 +179,13 @@ public class App {
 
                 System.out.println("> "+trem.toString());
 
-                if(trem.removerTrem() & garagemTrem.removeTrem(trem)) System.out.println("(Removido Trem) -> "+trem);
+                if(trem.removerTrem() && garagemTrem.removeTrem(trem)) System.out.println("(Removido Trem) -> "+trem);
                 
                 break;
-             default:
+            default:
                 if(escolha != 0) System.out.println("Opção inválida!");
                 break;
-         }
+        }
         }while(escolha != 0);
 
         s.close();

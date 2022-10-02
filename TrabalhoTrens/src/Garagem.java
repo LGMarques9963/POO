@@ -19,13 +19,13 @@ public class Garagem {
     }
     public void listarLocomotivas(){
         for(ElementoTrem elemento : elementos){
-            if(elemento.getEstado() & elemento instanceof Locomotiva) System.out.println(elemento);
+            if(elemento.getEstado() && elemento instanceof Locomotiva) System.out.println(elemento);
         }
 
     }
     public void listarVagoes(){
         for(ElementoTrem elemento : elementos){
-            if(elemento.getEstado() & elemento instanceof Vagao) System.out.println(elemento);
+            if(elemento.getEstado() && elemento instanceof Vagao) System.out.println(elemento);
         }
 
     }
@@ -33,7 +33,7 @@ public class Garagem {
         ElementoTrem locNull = null;
 
         for(ElementoTrem elementoTrem : elementos){
-            if(idElemento == elementoTrem.getCodigo()) return (ElementoTrem) elementoTrem;
+            if(idElemento == elementoTrem.getCodigo()) return elementoTrem;
         }
         
         return locNull;
