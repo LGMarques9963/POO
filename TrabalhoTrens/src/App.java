@@ -28,16 +28,12 @@ public class App {
         Trem trem;
 
         Scanner s = new Scanner(System.in);
-        
-        garagem.adicionaElemento(new Locomotiva(4.5, 6));
-        garagem.adicionaElemento(new Locomotiva(4.5, 6));
-        garagem.adicionaElemento(new Locomotiva(4.5, 6));
-        garagem.adicionaElemento(new Locomotiva(4.5, 6));
 
         for(int i=0;i<=30;i++){
             Random r = new Random();
-            garagem.adicionaElemento(new Vagao(r.nextInt(50)*10/2));
             garagem.adicionaElemento(new Locomotiva(r.nextInt(50)*10/2, r.nextInt(20)));
+            garagem.adicionaElemento(new Vagao(r.nextInt(50)*10/2));
+            garagem.adicionaElemento(new VagaoPassageiros(r.nextInt(50)));
         }
 
         do{
@@ -98,7 +94,7 @@ public class App {
                                     System.out.println("> "+trem);
                                     System.out.println("(Inserido) -> "+locomotiva.toString());
                                 }else{
-                                    System.out.println("Nao é possivel utilizar essa locomotiva\n");
+                                    System.out.println("Nao é possível utilizar essa locomotiva\n");
                                 }
 
                             break;
